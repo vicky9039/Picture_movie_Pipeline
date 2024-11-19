@@ -22,3 +22,16 @@ git branch -M main
 git push -u origin main
 
 git remote remove origin
+
+
+echo "# Picture_movie_Pipeline" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/vicky9039/Picture_movie_Pipeline.git
+git push -u origin main
+
+setup/terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/4.55.0/linux_amd64/terraform-provider-aws_v4.55.0_x5
+setup/terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/4.55.0/linux_amd64/*
+git rm --cached setup/terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/4.55.0/linux_amd64/terraform-provider-aws_v4.55.0_x5
