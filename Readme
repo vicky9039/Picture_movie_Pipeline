@@ -1,1 +1,6 @@
 #pipeline
+git remote add origin https://github.com/vicky9039/Picture_movies_pipeline.git
+
+git remote add origin https://github.com/vicky9039/Picture_movies_pipeline.git
+git branch -M main
+git push -u origin main
