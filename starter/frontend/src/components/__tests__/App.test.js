@@ -1,8 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import App from '../../App'; // Adjust the import path as necessary
+import React from 'react';
 
-test('renders learn react link', () => {
+import App from '../../App';
+
+const movieHeading = process.env.FAIL_TEST ? 'WRONG_HEADING' : 'Movie List';
+
+test('renders Movie List heading', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+  const linkElement = screen.getByText(movieHeading);
   expect(linkElement).toBeInTheDocument();
 });
