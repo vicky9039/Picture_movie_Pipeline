@@ -115,7 +115,7 @@ jobs:
           kustomize edit set image frontend=562039328041.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
           kustomize build | kubectl apply -f -
 
-    - name: Display application URLs       
-      run: |
-        cd starter/frontend/k8s
+    - name: Display application URLs  
+      working-directory:  starter/frontend/k8s   
+      run: 
         kubectl get svc -A
