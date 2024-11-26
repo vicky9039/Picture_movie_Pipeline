@@ -99,7 +99,7 @@ jobs:
       run: |
         echo "Using BE_SERVICE_URL=${{ steps.get_be_service_url.outputs.be_service_url }}"
         docker build --build-arg=REACT_APP_MOVIE_API_URL=http://${{ steps.get_be_service_url.outputs.be_service_url }} --tag 533267082175.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG .
-        docker push 533267082175.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
+        docker push 562039328041.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
 
     - name: Configure Kubeconfig
       run:
@@ -112,7 +112,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
         REPO_NAME: frontend
       run: |
-          kustomize edit set image frontend=533267082175.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
+          kustomize edit set image frontend=562039328041.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
           kustomize build | kubectl apply -f -
 
     - name: Display application URLs       

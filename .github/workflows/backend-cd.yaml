@@ -80,8 +80,8 @@ jobs:
         REPO_NAME: backend
       run: |
         docker build -t backend:${IMAGE_TAG} .
-        docker tag backend:${IMAGE_TAG} 533267082175.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
-        docker push 533267082175.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
+        docker tag backend:${IMAGE_TAG} 562039328041.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
+        docker push 562039328041.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
 
     - name: Update Kubeconfig
       run:
@@ -93,7 +93,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
         REPO_NAME: backend
       run: |
-        kustomize edit set image backend=533267082175.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
+        kustomize edit set image backend=562039328041.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
         kustomize build | kubectl apply -f -
 
     - name: Display application URL   
