@@ -83,13 +83,13 @@ jobs:
         aws eks update-kubeconfig --name cluster --region us-east-1
 
     - name: Display application URLs
-      id: Service_URL
+      id: get_be_service_url
       run: |
         cd starter/frontend/k8s
         kubectl get svc -A
-        SERVICE_URL=$(kubectl get svc backend -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-          echo "SERVICE_URL=${SERVICE_URL}"
-          echo "::set-output name=service_url::${SERVICE_URL}"
+        BE_SERVICE_URL=$(kubectl get svc backend -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+          echo "BE_SERVICE_URL=${BE_SERVICE_URL}"
+          echo "::set-output name=be_service_url::${BE_SERVICE_URL}"
 
     - name: Build and Push Docker Image
       working-directory: starter/frontend
@@ -97,8 +97,8 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
         REPO_NAME: frontend
       run: |
-        echo "Using SERVICE_URL=${{ steps.get_service_url.outputs.service_url }}"
-        docker build --build-arg=REACT_APP_MOVIE_API_URL=http://${{ steps.get_service_url.outputs.service_url }} --tag 562039328041.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG .
+        echo "Using BE_SERVICE_URL=${{ steps.get_be_service_url.outputs.be_service_url }}"
+        docker build --build-arg=REACT_APP_MOVIE_API_URL=http://${{ steps.get_be_service_url.outputs.be_service_url }} --tag 562039328041.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG .
         docker push 562039328041.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
 
     - name: Configure Kubeconfig
@@ -115,7 +115,7 @@ jobs:
           kustomize edit set image frontend=562039328041.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:$IMAGE_TAG
           kustomize build | kubectl apply -f -
 
-    - name: Display application URLs  
-      working-directory:  starter/frontend/k8s   
-      run: 
+    - name: Display application URLs       
+      run: |
+        cd starter/frontend/k8s
         kubectl get svc -A
